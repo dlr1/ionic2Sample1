@@ -1,0 +1,16 @@
+<ion-navbar *navbar>
+  <ion-title>
+    {{driver.givenName}} {{driver.familyName}}
+  </ion-title>
+</ion-navbar>
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-label>{{driver.givenName}}</ion-label>
+        </ion-card-header>
+        <ion-card-content>
+            <h2>{{driver.dateOfBirth}}</h2>
+            <h3>{{driver.nationality}}</h3>
+         </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-navbar *navbar>
+    <ion-buttons start>
+        <button menuToggle>
+            <ion-icon name="menu">
+            </ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>
+        Driver standings - 2013
+    </ion-title>
+    <ion-buttons end>
+        <button (click)="toggleSearch()">
+            <ion-icon name="search">
+            </ion-icon>
+        </button>
+    </ion-buttons>
+ 
+</ion-navbar>
+
+<ion-content class="home">
+   
+    
+    <ion-searchbar *ngIf="searchVisible" (input)="doFilter()" [(ngModel)]="searchValue"></ion-searchbar>
+  <ion-list>
+      <button ion-item *ngFor="#driver of filteredItems, #i=index" (click)="itemSelected(driver)">
+         <ion-row>
+            <ion-col width-25> {{i + 1}}<ion-icon name="home"></ion-icon></ion-col>        
+            <ion-col width-25>{{driver.Driver.givenName}}</ion-col>
+            <ion-col width-25>{{driver.Driver.familyName}}</ion-col>
+         </ion-row>          
+      </button>
+  </ion-list>
+</ion-content>
