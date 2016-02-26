@@ -1,17 +1,25 @@
 import {App, IonicApp, Platform, MenuController} from 'ionic-framework/ionic';
 import {DriverListPage} from './pages/driver/driverlist';
 import {EmployeeIndexPage} from './pages/employeeindex/employeeindex';
+import {ProfilePage} from './pages/profile/profile';
 import {DataService} from './services/dataService';
-import {Jsonp, JSONP_PROVIDERS} from 'angular2/http';
+import {AuthService} from './services/authService';
+import {Http, Jsonp, JSONP_PROVIDERS} from 'angular2/http';
 
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
-import {Type} from 'angular2/core';
-
+import {Type, provide} from 'angular2/core';
+import {AuthHttp, AuthConfig} from 'angular2-jwt';
 
 @App({
   templateUrl: 'build/app.html',
-  config: {},
-  providers:[JSONP_PROVIDERS, DataService] // http://ionicframework.com/docs/v2/api/config/Config/
+  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+  providers:[JSONP_PROVIDERS, DataService, AuthService,
+                provide(AuthHttp, {
+                    useFactory: (http) => {
+                        return new AuthHttp(new AuthConfig, http);
+                    },
+                    deps: [Http]
+                    })] 
 })
 class MyApp {
   
@@ -19,7 +27,7 @@ class MyApp {
       {title:"Drivers", component:DriverListPage}
       ,{title:"Employees", component:EmployeeIndexPage}
   ]
-  rootPage: Type = EmployeeIndexPage;
+  rootPage: Type = ProfilePage;
   
   openPage(page){
         this.menu.close();
